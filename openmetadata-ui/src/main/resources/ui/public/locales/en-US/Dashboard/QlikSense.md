@@ -110,17 +110,29 @@ $$
 
 $$section
 ### SSL CA $(id="caCertificate")
+<<<<<<< HEAD
 The CA certificate used for SSL validation.
+=======
+The CA certificate used for SSL validation (`ssl_ca`)
+>>>>>>> 5e78d6e187 (Doc: Updating Connection Docs for SSL in UI for Messaging & Dashboard)
 $$
 
 $$section
 ### SSL Certificate $(id="sslCertificate")
+<<<<<<< HEAD
 The SSL certificate used for client authentication.
+=======
+The SSL certificate used for client authentication (`ssl_cert`)
+>>>>>>> 5e78d6e187 (Doc: Updating Connection Docs for SSL in UI for Messaging & Dashboard)
 $$
 
 $$section
 ### SSL Key $(id="sslKey")
+<<<<<<< HEAD
 The private key associated with the SSL certificate.
+=======
+The private key associated with the SSL certificate (`ssl_key`)
+>>>>>>> 5e78d6e187 (Doc: Updating Connection Docs for SSL in UI for Messaging & Dashboard)
 $$
 
 $$section
