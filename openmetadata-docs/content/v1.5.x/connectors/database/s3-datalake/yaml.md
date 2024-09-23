@@ -1,6 +1,6 @@
 ---
 title: Run the S3 Datalake Connector Externally
-slug: /connectors/database/datalake/yaml
+slug: /connectors/database/s3-datalake/yaml
 ---
 
 {% connectorDetailsHeader
@@ -48,18 +48,11 @@ To execute metadata extraction AWS account should have enough access to fetch re
 }
 ```
 
-### ADLS Permissions
-
-To extract metadata from Azure ADLS (Storage Account - StorageV2), you will need an **App Registration** with the following
-permissions on the Storage Account:
-- Storage Blob Data Contributor
-- Storage Queue Data Contributor
-
 ### Python Requirements
 
 {% partial file="/v1.5/connectors/python-requirements.md" /%}
 
-If running OpenMetadata version greater than 0.13, you will need to install the Datalake ingestion for GCS or S3:
+If running OpenMetadata version greater than 0.13, you will need to install the Datalake ingestion for S3:
 
 #### S3 installation
 
@@ -67,21 +60,9 @@ If running OpenMetadata version greater than 0.13, you will need to install the 
 pip3 install "openmetadata-ingestion[datalake-s3]"
 ```
 
-#### GCS installation
-
-```bash
-pip3 install "openmetadata-ingestion[datalake-gcp]"
-```
-
-#### Azure installation
-
-```bash
-pip3 install "openmetadata-ingestion[datalake-azure]"
-```
-
 #### If version <0.13
 
-You will be installing the requirements together for S3 and GCS
+You will be installing the requirements together for S3
 
 ```bash
 pip3 install "openmetadata-ingestion[datalake]"
@@ -155,135 +136,6 @@ source:
 
 {% /codePreview %}
 
-
-### This is a sample config for Datalake using GCS:
-
-{% codePreview %}
-
-{% codeInfoContainer %}
-
-#### Source Configuration - Service Connection
-
-{% codeInfo srNumber=5 %}
-
-* **type**: Credentials type, e.g. `service_account`.
-* **projectId**
-* **privateKey**
-* **privateKeyId**
-* **clientEmail**
-* **clientId**
-* **authUri**: [https://accounts.google.com/o/oauth2/auth](https://accounts.google.com/o/oauth2/auth) by default
-* **tokenUri**: [https://oauth2.googleapis.com/token](https://oauth2.googleapis.com/token) by default
-* **authProviderX509CertUrl**: [https://www.googleapis.com/oauth2/v1/certs](https://www.googleapis.com/oauth2/v1/certs) by default
-* **clientX509CertUrl**
-* **bucketName**: name of the bucket in GCS
-* **Prefix**: prefix in gcp bucket
-
-{% /codeInfo %}
-
-
-{% partial file="/v1.5/connectors/yaml/database/source-config-def.md" /%}
-
-{% partial file="/v1.5/connectors/yaml/ingestion-sink-def.md" /%}
-
-{% partial file="/v1.5/connectors/yaml/workflow-config-def.md" /%}
-
-{% /codeInfoContainer %}
-
-{% codeBlock fileName="filename.yaml" %}
-
-```yaml {% isCodeBlock=true %}
-source:
-  type: datalake
-  serviceName: local_datalake
-  serviceConnection:
-    config:
-      type: Datalake
-      configSource:
-        securityConfig:
-```
-```yaml {% srNumber=5 %}
-          gcpConfig:
-            type: type of account
-            projectId: project id
-            privateKeyId: private key id
-            privateKey: private key
-            clientEmail: client email
-            clientId: client id
-            authUri: https://accounts.google.com/o/oauth2/auth
-            tokenUri: https://oauth2.googleapis.com/token
-            authProviderX509CertUrl: https://www.googleapis.com/oauth2/v1/certs
-            clientX509CertUrl:  clientX509 Certificate Url
-      bucketName: bucket name
-      prefix: prefix
-```
-
-{% partial file="/v1.5/connectors/yaml/database/source-config.md" /%}
-
-{% partial file="/v1.5/connectors/yaml/ingestion-sink.md" /%}
-
-{% partial file="/v1.5/connectors/yaml/workflow-config.md" /%}
-
-{% /codeBlock %}
-
-{% /codePreview %}
-
-### This is a sample config for Datalake using Azure:
-
-{% codePreview %}
-
-{% codeInfoContainer %}
-
-#### Source Configuration - Service Connection
-
-{% codeInfo srNumber=9 %}
-
-- **Client ID** : Client ID of the data storage account
-- **Client Secret** : Client Secret of the account
-- **Tenant ID** : Tenant ID under which the data storage account falls
-- **Account Name** : Account Name of the data Storage
-
-{% /codeInfo %}
-
-
-{% partial file="/v1.5/connectors/yaml/database/source-config-def.md" /%}
-
-{% partial file="/v1.5/connectors/yaml/ingestion-sink-def.md" /%}
-
-{% partial file="/v1.5/connectors/yaml/workflow-config-def.md" /%}
-
-{% /codeInfoContainer %}
-
-{% codeBlock fileName="filename.yaml" %}
-
-```yaml {% isCodeBlock=true %}
-# Datalake with Azure 
-source:
-  type: datalake
-  serviceName: local_datalake
-  serviceConnection:
-    config:
-      type: Datalake
-      configSource:    
-```
-```yaml {% srNumber=9 %}  
-        securityConfig: 
-          clientId: client-id
-          clientSecret: client-secret
-          tenantId: tenant-id
-          accountName: account-name
-      prefix: prefix
-```
-
-{% partial file="/v1.5/connectors/yaml/database/source-config.md" /%}
-
-{% partial file="/v1.5/connectors/yaml/ingestion-sink.md" /%}
-
-{% partial file="/v1.5/connectors/yaml/workflow-config.md" /%}
-
-{% /codeBlock %}
-
-{% /codePreview %}
 
 {% partial file="/v1.5/connectors/yaml/ingestion-cli.md" /%}
 
